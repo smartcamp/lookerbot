@@ -2,7 +2,8 @@ import * as fs from "fs"
 import { ReadableStreamBuffer } from "stream-buffers"
 import { Store } from "./store"
 
-const gcs = require("@google-cloud/storage")
+// const gcs = require("@google-cloud/storage")
+const { Storage } = require("@google-cloud/storage")
 
 export class GoogleCloudStore extends Store {
 
@@ -16,7 +17,11 @@ export class GoogleCloudStore extends Store {
     blobStream.put(buffer)
     blobStream.stop()
 
-    const storage = gcs({
+    // const storage = gcs({
+    //   credentials: process.env.GOOGLE_CLOUD_CREDENTIALS_JSON ? JSON.parse(process.env.GOOGLE_CLOUD_CREDENTIALS_JSON) : undefined,
+    //   projectId: process.env.GOOGLE_CLOUD_PROJECT,
+    // })
+    const storage = new Storage({
       credentials: process.env.GOOGLE_CLOUD_CREDENTIALS_JSON ? JSON.parse(process.env.GOOGLE_CLOUD_CREDENTIALS_JSON) : undefined,
       projectId: process.env.GOOGLE_CLOUD_PROJECT,
     })
